@@ -28,7 +28,7 @@ export default function ToggleButton({ ...buttonProps }) {
       onClick={handleButtonClick}
     >
       <Emoji
-        label={theme === Theme.LIGHT ? 'Light mode' : 'Dark mode'}
+        label={theme === Theme.LIGHT ? 'sun' : 'crescent moon'}
         symbol={theme === Theme.LIGHT ? '☀️' : '🌙'}
       />
       {' '}
