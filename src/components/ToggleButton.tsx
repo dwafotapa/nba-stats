@@ -8,27 +8,24 @@ enum Theme {
 
 export default function ToggleButton({ ...buttonProps }) {
   const [theme, setTheme] = useState(Theme.LIGHT);
+  const nextTheme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
   
   useEffect(() => {
     document.body.classList.remove(Theme.LIGHT, Theme.DARK);
     document.body.classList.add(theme);
   }, [theme]);
 
-  const handleButtonClick = () => {
-    setTheme(state => state === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
-  }
-
   return (
     <button
       {...buttonProps}
-      onClick={handleButtonClick}
+      onClick={() => setTheme(state => state === Theme.LIGHT ? Theme.DARK : Theme.LIGHT)}
     >
       <Emoji
-        label={theme === Theme.LIGHT ? 'sun' : 'crescent moon'}
-        symbol={theme === Theme.LIGHT ? '☀️' : '🌙'}
+        label={theme === Theme.LIGHT ? 'crescent moon' : 'sun'}
+        symbol={theme === Theme.LIGHT ? '🌙' : '☀️'}
       />
       {' '}
-      {theme.charAt(0).toUpperCase()}{theme.slice(1)} mode
+      {nextTheme.charAt(0).toUpperCase()}{nextTheme.slice(1)} mode
     </button>
   );
 }

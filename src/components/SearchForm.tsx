@@ -55,7 +55,7 @@ export default function SearchForm() {
 
     const timeoutId = setTimeout(() => {
       fetch();
-    }, 400);
+    }, 200);
 
     return () => clearTimeout(timeoutId);
   }, [query])
@@ -67,6 +67,9 @@ export default function SearchForm() {
         placeholder="Search players..."
         value={query}
         style={{
+          backgroundColor: 'var(--search-bg-color)',
+          border: '1px solid black',
+          borderRadius: `4px 4px ${query ? 0 : ''} ${query ? 0 : ''}`,
           fontSize: '1rem',
           padding: '0.75rem',
           width: '100%'
@@ -76,6 +79,8 @@ export default function SearchForm() {
       <ul
         hidden={!loading && !players}
         style={{
+          backgroundColor: 'var(--search-bg-color)',
+          color: '#222',
           border: '1px solid black',
           borderTop: 0,
           borderBottomLeftRadius: 4,
@@ -86,7 +91,7 @@ export default function SearchForm() {
           padding: '0.75rem 0'
         }}
       >
-        {loading || error || players?.length === 0
+        {query
           ? <li
               style={{
                 lineHeight: '1.5rem',
@@ -94,7 +99,9 @@ export default function SearchForm() {
                 paddingRight: '0.75rem',
               }}
             >
-              {loading ? 'Loading...' : (error ? 'An error occured.' : 'No players found.')}
+              {loading ? 'Loading...' : null}
+              {error ? 'An error occured.' : null}
+              {players?.length === 0 ? 'No players found.' : null}
             </li>
           : null
         }

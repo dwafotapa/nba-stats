@@ -34,10 +34,11 @@ export default function Layout({ children }: { children: ReactNode }) {
         </h1>
         <ToggleButton
           style={{
-            backgroundColor: '#000',
+            backgroundColor: 'var(--text-color)',
             borderRadius: 4,
-            color: '#e6e6e6',
+            color: 'var(--bg-color)',
             fontSize: '1.1rem',
+            fontWeight: 'bold',
             padding: '0.5rem 1rem'
           }}
         />

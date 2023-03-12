@@ -12,11 +12,17 @@ body {
 body.light {
   --bg-color: #fff;
   --text-color: #222;
+
+  --search-bg-color: #fff;
+  --card-bg-color: lightgrey;
 }
 
 body.dark {
   --bg-color: #222;
   --text-color: #e6e6e6;
+
+  --search-bg-color: grey;
+  --card-bg-color: grey;
 }
 
 code {
