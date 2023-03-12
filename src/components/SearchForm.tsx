@@ -61,7 +61,7 @@ export default function SearchForm() {
   }, [query])
 
   return (
-    <form name="searchForm">
+    <form name="searchForm" style={{ position: 'relative' }}>
       <input
         type="search"
         placeholder="Search players..."
@@ -70,9 +70,11 @@ export default function SearchForm() {
           backgroundColor: 'var(--search-bg-color)',
           border: '1px solid black',
           borderRadius: `4px 4px ${query ? 0 : ''} ${query ? 0 : ''}`,
+          color: 'var(--text-color)',
           fontSize: '1rem',
           padding: '0.75rem',
-          width: '100%'
+          width: '100%',
+          outline: 'none'
         }}
         onChange={e => setQuery(e.target.value)}
       />
@@ -80,7 +82,7 @@ export default function SearchForm() {
         hidden={!loading && !players}
         style={{
           backgroundColor: 'var(--search-bg-color)',
-          color: '#222',
+          color: 'var(--text-color)',
           border: '1px solid black',
           borderTop: 0,
           borderBottomLeftRadius: 4,
@@ -88,7 +90,11 @@ export default function SearchForm() {
           cursor: 'pointer',
           listStyleType: 'none',
           margin: 0,
-          padding: '0.75rem 0'
+          padding: '0.75rem 0',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          zIndex: 10
         }}
       >
         {query

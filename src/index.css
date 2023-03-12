@@ -25,6 +25,10 @@ body.dark {
   --card-bg-color: grey;
 }
 
+body.dark input::placeholder {
+  color: #fff;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
