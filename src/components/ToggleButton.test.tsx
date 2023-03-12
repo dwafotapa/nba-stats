@@ -1,29 +1,25 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ToggleButton from "./ToggleButton";
 
 describe('ToggleButton', () => {
   it('renders a button', () => {
     render(<ToggleButton />);
-
+    
     const button = screen.getByRole('button');
-
     expect(button).toBeInTheDocument();
   });
 
-  it('toggles a light/dark class to the body element when I click on the button', () => {
+  it('toggles a light/dark class to the body element when I click on the button', async () => {
     render(<ToggleButton />);
-
-    const { body } = document;
-    const button = screen.getByRole('button');
+    expect(document.body).toHaveClass('light');
     
-    expect(body).toHaveClass('light');
-
     // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
+      const button = screen.getByRole('button');
       userEvent.click(button);
     });
 
-    expect(body).toHaveClass('dark');
+    expect(document.body).toHaveClass('dark');
   });
 });

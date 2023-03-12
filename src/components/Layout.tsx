@@ -6,8 +6,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
-        margin: '0 auto',
-        width: 600
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '3rem 1rem',
+        maxWidth: 600
       }}
     >
       <header

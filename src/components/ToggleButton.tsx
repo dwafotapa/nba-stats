@@ -6,10 +6,6 @@ enum Theme {
   DARK = 'dark'
 }
 
-// interface ToggleButtonProps {
-//   buttonProps: []
-// }
-
 export default function ToggleButton({ ...buttonProps }) {
   const [theme, setTheme] = useState(Theme.LIGHT);
   
