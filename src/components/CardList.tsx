@@ -1,12 +1,16 @@
-import { Players } from "../App";
+import { Player } from "../App";
 import Emoji from "./Emoji";
 
 interface CardListProps {
-  items: Players
+  items: Player[],
+  pinPlayer: (player: Player) => void
 }
 
-export default function CardList({ items }: CardListProps) {
-  if (items?.size === 0) {
+export default function CardList({
+  items,
+  pinPlayer
+}: CardListProps) {
+  if (items?.length === 0) {
     return (
       <h1
         style={{
@@ -37,16 +41,17 @@ export default function CardList({ items }: CardListProps) {
         paddingLeft: 0
       }}
     >
-      {Array.from(items.values()).map(({ id, first_name, last_name, height_feet, weight_pounds, position, team: { full_name } }) =>
+      {items.map(player =>
         <li
           style={{
             backgroundColor: 'var(--card-bg-color)',
             border: '1px solid #000',
             borderRadius: 4,
+            borderColor: player?.pinned ? 'blue' : '',
             padding: '2rem',
             position: 'relative'
           }}
-          key={id}
+          key={player?.id}
         >
           <Emoji
             label="pushpin"
@@ -56,18 +61,20 @@ export default function CardList({ items }: CardListProps) {
               position: 'absolute',
               top: 0,
               right: 0,
-              padding: '1rem'
+              padding: '1rem',
+              opacity: player?.pinned ? 1 : 0.5
             }}
+            onClick={() => pinPlayer(player)}
           />
-          <h2 style={{ marginTop: 0 }}>{first_name} {last_name}</h2>
-          <p>{height_feet} {weight_pounds}</p>
+          <h2 style={{ marginTop: 0 }}>{player?.first_name} {player?.last_name}</h2>
+          <p>{player?.height_feet} {player?.weight_pounds}</p>
           <p
             style={{
               lineHeight: '1.5rem'
             }}
           >
-            Position: {position}<br />
-            Team: {full_name}
+            Position: {player?.position}<br />
+            Team: {player?.team?.full_name}
           </p>
         </li>
       )}
