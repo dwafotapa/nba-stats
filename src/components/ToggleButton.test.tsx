@@ -5,7 +5,7 @@ import ToggleButton from "./ToggleButton";
 describe('ToggleButton', () => {
   it('renders a button', () => {
     render(<ToggleButton />);
-    
+
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
   });
@@ -13,12 +13,9 @@ describe('ToggleButton', () => {
   it('toggles a light/dark class to the body element when I click on the button', async () => {
     render(<ToggleButton />);
     expect(document.body).toHaveClass('light');
-    
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      const button = screen.getByRole('button');
-      userEvent.click(button);
-    });
+
+    const button = screen.getByRole('button');
+    userEvent.click(button);
 
     expect(document.body).toHaveClass('dark');
   });

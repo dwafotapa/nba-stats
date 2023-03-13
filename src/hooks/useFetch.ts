@@ -14,7 +14,7 @@ const initialState = {
 }
 
 export default function useFetch<T>(): [
-  state : State<T>,
+  state: State<T>,
   get: (resource: RequestInfo | URL) => void,
   reset: () => void
 ] {
@@ -34,7 +34,7 @@ export default function useFetch<T>(): [
         loading: false,
         error: null
       });
-    } catch(e: unknown) {
+    } catch (e: unknown) {
       setState({
         data: null,
         loading: false,

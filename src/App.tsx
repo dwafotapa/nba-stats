@@ -3,6 +3,7 @@ import CardList from './components/CardList';
 import Layout from './components/Layout';
 import SearchForm from './components/SearchForm';
 import Spacer from './components/Spacer';
+import useLocalStorage from './hooks/useLocalStorage';
 
 export interface Player {
   id: number;
@@ -22,8 +23,8 @@ export type Players = Map<number, Player>;
 
 function App() {
   const [players, setPlayers] = useState<Players>(new Map<number, Player>());
-  const [pinnedPlayers, setPinnedPlayers] = useState<Players>(new Map<number, Player>());
-  
+  const [pinnedPlayers, setPinnedPlayers] = useLocalStorage<Players>('players', new Map<number, Player>());
+
   const addPlayer = (player: Player) => setPlayers(state => new Map<number, Player>(state.set(player?.id, player)));
 
   const pinPlayer = (player: Player) => {
@@ -47,6 +48,7 @@ function App() {
     }
   };
 
+  // build an ordered array of player ids, then remove duplicates with Set, finally map ids to players
   const orderedPlayers = Array.from(
     new Set([
       ...Array.from(pinnedPlayers.keys()),
@@ -62,7 +64,7 @@ function App() {
         <Spacer size="2rem" />
         <CardList
           items={orderedPlayers}
-          pinPlayer={pinPlayer}
+          pinItem={pinPlayer}
         />
       </main>
     </Layout>

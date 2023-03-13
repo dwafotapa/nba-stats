@@ -3,12 +3,12 @@ import Emoji from "./Emoji";
 
 interface CardListProps {
   items: Player[],
-  pinPlayer: (player: Player) => void
+  pinItem: (player: Player) => void
 }
 
 export default function CardList({
   items,
-  pinPlayer
+  pinItem
 }: CardListProps) {
   if (items?.length === 0) {
     return (
@@ -62,9 +62,9 @@ export default function CardList({
               top: 0,
               right: 0,
               padding: '1rem',
-              opacity: player?.pinned ? 1 : 0.5
+              opacity: player?.pinned ? 1 : 0.4
             }}
-            onClick={() => pinPlayer(player)}
+            onClick={() => pinItem(player)}
           />
           <h2 style={{ marginTop: 0 }}>{player?.first_name} {player?.last_name}</h2>
           <p>{player?.height_feet} {player?.weight_pounds}</p>

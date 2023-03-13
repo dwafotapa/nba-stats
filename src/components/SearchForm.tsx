@@ -24,7 +24,7 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
   const [query, setQuery] = useState('');
   const [{ data, loading, error }, fetch, reset] = useFetch<ApiResponse<Player>>();
   const players = data?.data;
-  
+
   useEffect(() => {
     if (!query) {
       reset();
@@ -87,16 +87,16 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
       >
         {query
           ? <li
-              style={{
-                lineHeight: '1.5rem',
-                paddingLeft: '0.75rem',
-                paddingRight: '0.75rem',
-              }}
-            >
-              {loading ? 'Loading...' : null}
-              {error ? 'An error occured.' : null}
-              {players?.length === 0 ? 'No players found.' : null}
-            </li>
+            style={{
+              lineHeight: '1.5rem',
+              paddingLeft: '0.75rem',
+              paddingRight: '0.75rem',
+            }}
+          >
+            {loading ? 'Loading...' : null}
+            {error ? 'An error occured.' : null}
+            {players?.length === 0 ? 'No players found.' : null}
+          </li>
           : null
         }
         {players?.map(player =>
