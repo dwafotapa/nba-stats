@@ -13,14 +13,14 @@ const initialState = {
   error: null
 }
 
-export default function useFetch<T>(resource: RequestInfo | URL): [
+export default function useFetch<T>(): [
   state : State<T>,
-  get: () => void,
+  get: (resource: RequestInfo | URL) => void,
   reset: () => void
 ] {
   const [state, setState] = useState<State<T>>(initialState);
 
-  async function get() {
+  async function get(resource: RequestInfo | URL) {
     setState({
       data: null,
       loading: true,

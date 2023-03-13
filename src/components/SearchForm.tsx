@@ -1,50 +1,28 @@
 import { useEffect, useState } from "react";
+import { Player } from "../App";
 import { BALL_DONT_LIE_API__PLAYERS_ENDPOINT } from "../constants";
 import useFetch from "../hooks/useFetch";
-
-interface Player {
-  id: number;
-  first_name: string;
-  last_name: string;
-  position: string;
-  height_feet: number;
-  height_inches: number;
-  weight_pounds: number;
-  team: {
-    full_name: string
-  }
-}
 
 interface ApiResponse<T> {
   data: T[],
   meta: {}
 }
 
-function createURL({
-  page,
-  per_page,
-  query,
-}: {
+function createURL(searchParams: {
   page: string,
   per_page: string,
   query: string,
 }) {
   const url = new URL(BALL_DONT_LIE_API__PLAYERS_ENDPOINT);
-  url.searchParams.append('page', page);
-  url.searchParams.append('per_page', per_page);
-  url.searchParams.append('search', query);
+  url.searchParams.append('page', searchParams.page);
+  url.searchParams.append('per_page', searchParams.per_page);
+  url.searchParams.append('search', searchParams.query);
   return url;
 }
 
-export default function SearchForm() {
+export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) => void }) {
   const [query, setQuery] = useState('');
-  const [{ data, loading, error }, fetch, reset] = useFetch<ApiResponse<Player>>(
-    createURL({
-      page: '0',
-      per_page: '5',
-      query
-    })
-  );
+  const [{ data, loading, error }, fetch, reset] = useFetch<ApiResponse<Player>>();
   const players = data?.data;
   
   useEffect(() => {
@@ -54,11 +32,21 @@ export default function SearchForm() {
     }
 
     const timeoutId = setTimeout(() => {
-      fetch();
+      const url = createURL({
+        page: '0',
+        per_page: '5',
+        query
+      });
+      fetch(url);
     }, 200);
 
     return () => clearTimeout(timeoutId);
   }, [query])
+
+  const handlePlayerClick = (player: Player) => {
+    addPlayer(player);
+    setQuery('');
+  }
 
   return (
     <form name="searchForm" style={{ position: 'relative' }}>
@@ -111,12 +99,13 @@ export default function SearchForm() {
             </li>
           : null
         }
-        {players?.map(({ id, first_name, last_name }) =>
+        {players?.map(player =>
           <li
-            key={id}
+            key={player.id}
             dangerouslySetInnerHTML={{
-              __html: `${first_name} ${last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
+              __html: `${player.first_name} ${player.last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
             }}
+            onClick={() => handlePlayerClick(player)}
             style={{
               lineHeight: '1.5rem',
               paddingLeft: '0.75rem',

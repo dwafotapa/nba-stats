@@ -3,7 +3,8 @@ import SearchForm from "./SearchForm";
 
 describe('SearchForm', () => {
   it('renders a form and an input', () => {
-    render(<SearchForm />);
+    const addPlayer = jest.fn();
+    render(<SearchForm addPlayer={addPlayer} />);
 
     const form = screen.getByRole('form');
     const input = screen.getByRole('searchbox');

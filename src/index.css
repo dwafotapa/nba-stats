@@ -14,7 +14,7 @@ body.light {
   --text-color: #222;
 
   --search-bg-color: #fff;
-  --card-bg-color: lightgrey;
+  --card-bg-color: #e6e6e6;
 }
 
 body.dark {

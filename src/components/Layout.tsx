@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         >
           <Emoji
             label="person bouncing ball"
-            symbol={'⛹'}
+            symbol="⛹"
           />
           {' '}
           NBA cards
