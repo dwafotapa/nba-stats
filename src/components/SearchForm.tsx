@@ -11,12 +11,12 @@ interface ApiResponse<T> {
 function createURL(searchParams: {
   page: string,
   per_page: string,
-  query: string,
+  search: string,
 }) {
   const url = new URL(BALL_DONT_LIE_API__PLAYERS_ENDPOINT);
   url.searchParams.append('page', searchParams.page);
   url.searchParams.append('per_page', searchParams.per_page);
-  url.searchParams.append('search', searchParams.query);
+  url.searchParams.append('search', searchParams.search);
   return url;
 }
 
@@ -35,7 +35,7 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
       const url = createURL({
         page: '0',
         per_page: '5',
-        query
+        search: query
       });
       fetch(url);
     }, 200);

@@ -22,8 +22,9 @@ export interface Player {
 export type Players = Map<number, Player>;
 
 function App() {
-  const [players, setPlayers] = useState<Players>(new Map<number, Player>());
+  // players state (ALL selected players including pinned players) keeps track of insertion order
   const [pinnedPlayers, setPinnedPlayers] = useLocalStorage<Players>('players', new Map<number, Player>());
+  const [players, setPlayers] = useState<Players>(new Map<number, Player>(pinnedPlayers));
 
   const addPlayer = (player: Player) => setPlayers(state => new Map<number, Player>(state.set(player?.id, player)));
 
@@ -37,10 +38,7 @@ function App() {
     } else {
       setPinnedPlayers(state => {
         const newState = new Map<number, Player>([
-          [player.id, {
-            ...player,
-            pinned: true
-          }],
+          [player.id, player],
           ...Array.from(state.entries())
         ]);
         return newState;
@@ -48,13 +46,18 @@ function App() {
     }
   };
 
-  // build an ordered array of player ids, then remove duplicates with Set, finally map ids to players
+  // build an ordered array of player ids
+  // then remove duplicates with Set
+  // finally map ids to players and add a pinned property for pinned players
   const orderedPlayers = Array.from(
     new Set([
       ...Array.from(pinnedPlayers.keys()),
       ...Array.from(players.keys())
     ])
-  ).map(id => (pinnedPlayers.get(id) || players.get(id)) as Player);
+  ).map(id => pinnedPlayers.has(id)
+    ? ({ ...pinnedPlayers.get(id), pinned: true }) as Player
+    : players.get(id) as Player
+  );
 
   return (
     <Layout>
