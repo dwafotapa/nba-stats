@@ -45,9 +45,8 @@ export default function CardList({
         <li
           style={{
             backgroundColor: 'var(--card-bg-color)',
-            border: '1px solid #000',
+            border: player?.pinned ? '1px solid blue' : '1px solid #000',
             borderRadius: 4,
-            borderColor: player?.pinned ? 'blue' : '',
             padding: '2rem',
             position: 'relative'
           }}

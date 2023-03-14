@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Player } from "../App";
-import { BALL_DONT_LIE_API__PLAYERS_ENDPOINT } from "../constants";
+import { BALLDONTLIE_API__PLAYERS_ENDPOINT, BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM, BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM } from "../constants";
 import useFetch from "../hooks/useFetch";
 
 interface ApiResponse<T> {
@@ -13,7 +13,7 @@ function createURL(searchParams: {
   per_page: string,
   search: string,
 }) {
-  const url = new URL(BALL_DONT_LIE_API__PLAYERS_ENDPOINT);
+  const url = new URL(BALLDONTLIE_API__PLAYERS_ENDPOINT);
   url.searchParams.append('page', searchParams.page);
   url.searchParams.append('per_page', searchParams.per_page);
   url.searchParams.append('search', searchParams.search);
@@ -32,12 +32,13 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
     }
 
     const timeoutId = setTimeout(() => {
-      const url = createURL({
-        page: '0',
-        per_page: '5',
-        search: query
-      });
-      fetch(url);
+      fetch(
+        createURL({
+          page: BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM,
+          per_page: BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM,
+          search: query
+        })
+      );
     }, 200);
 
     return () => clearTimeout(timeoutId);
@@ -101,9 +102,9 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
         }
         {players?.map(player =>
           <li
-            key={player.id}
+            key={player?.id}
             dangerouslySetInnerHTML={{
-              __html: `${player.first_name} ${player.last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
+              __html: `${player?.first_name} ${player?.last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
             }}
             onClick={() => handlePlayerClick(player)}
             style={{

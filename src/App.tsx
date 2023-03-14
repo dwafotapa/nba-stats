@@ -29,16 +29,16 @@ function App() {
   const addPlayer = (player: Player) => setPlayers(state => new Map<number, Player>(state.set(player?.id, player)));
 
   const pinPlayer = (player: Player) => {
-    if (pinnedPlayers.has(player.id)) {
+    if (pinnedPlayers.has(player?.id)) {
       setPinnedPlayers(state => {
         const newState = new Map<number, Player>(state);
-        newState.delete(player.id);
+        newState.delete(player?.id);
         return newState;
       });
     } else {
       setPinnedPlayers(state => {
         const newState = new Map<number, Player>([
-          [player.id, player],
+          [player?.id, player],
           ...Array.from(state.entries())
         ]);
         return newState;

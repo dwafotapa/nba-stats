@@ -11,18 +11,18 @@ body {
 
 body.light {
   --bg-color: #fff;
-  --text-color: #222;
+  --text-color: #191d32;
 
   --search-bg-color: #fff;
-  --card-bg-color: #e6e6e6;
+  --card-bg-color: #edede9;
 }
 
 body.dark {
-  --bg-color: #222;
-  --text-color: #e6e6e6;
+  --bg-color: #191d32;
+  --text-color: #edede9;
 
-  --search-bg-color: grey;
-  --card-bg-color: grey;
+  --search-bg-color: #282f44;
+  --card-bg-color: #282f44;
 }
 
 body.dark input::placeholder {
