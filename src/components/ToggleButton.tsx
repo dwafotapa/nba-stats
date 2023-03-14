@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import Emoji from "./Emoji";
 
 enum Theme {
@@ -7,9 +8,9 @@ enum Theme {
 }
 
 export default function ToggleButton({ ...buttonProps }) {
-  const [theme, setTheme] = useState(Theme.LIGHT);
+  const [theme, setTheme] = useLocalStorage<string>('theme', Theme.LIGHT);
   const nextTheme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
-  
+
   useEffect(() => {
     document.body.classList.remove(Theme.LIGHT, Theme.DARK);
     document.body.classList.add(theme);
