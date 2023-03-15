@@ -1,18 +1,10 @@
 import { Player } from "../App";
+import { formatPlayerHeight, formatPlayerWeight } from "../helpers/utils";
 import Emoji from "./Emoji";
 
 interface CardListProps {
   items: Player[],
   pinItem: (player: Player) => void
-}
-
-function formatPlayerHeight(feet: number | null, inches: number | null) {
-  let height = (feet !== null && inches !== null) ? `${feet}'${inches}"` : '??';
-  return height.replace('0"', '');
-}
-
-function formatPlayerWeight(weight: number | null) {
-  return weight !== null ? `${weight}lbs` : '??';
 }
 
 export default function CardList({

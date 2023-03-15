@@ -1,23 +1,12 @@
 import { useEffect, useState } from "react";
 import { Player } from "../App";
 import { BALLDONTLIE_API__PLAYERS_ENDPOINT, BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM, BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM } from "../constants";
+import { createURL } from "../helpers/utils";
 import useFetch from "../hooks/useFetch";
 
 interface ApiResponse<T> {
   data: T[],
   meta: {}
-}
-
-function createURL(searchParams: {
-  page: string,
-  per_page: string,
-  search: string,
-}) {
-  const url = new URL(BALLDONTLIE_API__PLAYERS_ENDPOINT);
-  url.searchParams.append('page', searchParams.page);
-  url.searchParams.append('per_page', searchParams.per_page);
-  url.searchParams.append('search', searchParams.search);
-  return url;
 }
 
 export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) => void }) {
@@ -34,9 +23,12 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
     const timeoutId = setTimeout(() => {
       fetch(
         createURL({
-          page: BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM,
-          per_page: BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM,
-          search: query
+          url: BALLDONTLIE_API__PLAYERS_ENDPOINT,
+          searchParams: {
+            page: BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM,
+            per_page: BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM,
+            search: query
+          }
         })
       );
     }, 200);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import handleResponse from "../utils/fetch";
+import handleResponse from "../helpers/fetch";
 
 interface State<T> {
   data: T | null,
