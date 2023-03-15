@@ -6,6 +6,15 @@ interface CardListProps {
   pinItem: (player: Player) => void
 }
 
+function formatPlayerHeight(feet: number | null, inches: number | null) {
+  let height = (feet !== null && inches !== null) ? `${feet}'${inches}"` : '??';
+  return height.replace('0"', '');
+}
+
+function formatPlayerWeight(weight: number | null) {
+  return weight !== null ? `${weight}lbs` : '??';
+}
+
 export default function CardList({
   items,
   pinItem
@@ -66,14 +75,16 @@ export default function CardList({
             onClick={() => pinItem(player)}
           />
           <h2 style={{ marginTop: 0 }}>{player?.first_name} {player?.last_name}</h2>
-          <p>{player?.height_feet} {player?.weight_pounds}</p>
+          <p>
+            <strong>{formatPlayerHeight(player?.height_feet, player?.height_inches)}, {formatPlayerWeight(player?.weight_pounds)}</strong>
+          </p>
           <p
             style={{
               lineHeight: '1.5rem'
             }}
           >
-            Position: {player?.position}<br />
-            Team: {player?.team?.full_name}
+            Position: <strong>{player?.position}</strong><br />
+            Team: <strong>{player?.team?.full_name}</strong>
           </p>
         </li>
       )}

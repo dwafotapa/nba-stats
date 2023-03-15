@@ -10,9 +10,9 @@ export interface Player {
   first_name: string;
   last_name: string;
   position: string;
-  height_feet: number;
-  height_inches: number;
-  weight_pounds: number;
+  height_feet: number | null;
+  height_inches: number | null;
+  weight_pounds: number | null;
   team: {
     full_name: string
   },
