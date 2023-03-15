@@ -1,4 +1,4 @@
-# catmash
+# NBA stats
 
 NBA stats is an app built with React where you can search and list NBA players.
 
