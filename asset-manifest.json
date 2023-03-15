@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nba-stats/static/css/main.07f944f2.css",
+    "main.js": "/nba-stats/static/js/main.3818c06e.js",
+    "static/js/787.85b8606f.chunk.js": "/nba-stats/static/js/787.85b8606f.chunk.js",
+    "index.html": "/nba-stats/index.html",
+    "main.07f944f2.css.map": "/nba-stats/static/css/main.07f944f2.css.map",
+    "main.3818c06e.js.map": "/nba-stats/static/js/main.3818c06e.js.map",
+    "787.85b8606f.chunk.js.map": "/nba-stats/static/js/787.85b8606f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.07f944f2.css",
+    "static/js/main.3818c06e.js"
+  ]
+}
