@@ -3,6 +3,7 @@ import { Player } from "../App";
 import { BALLDONTLIE_API__PLAYERS_ENDPOINT, BALLDONTLIE_API__PLAYERS__PAGE_QUERY_PARAM, BALLDONTLIE_API__PLAYERS__PER_PAGE_QUERY_PARAM } from "../constants";
 import { createURL } from "../helpers/utils";
 import useFetch from "../hooks/useFetch";
+import Autocomplete from "./Autocomplete";
 
 interface ApiResponse<T> {
   data: T[],
@@ -43,70 +44,42 @@ export default function SearchForm({ addPlayer }: { addPlayer: (player: Player) 
 
   return (
     <form name="searchForm" style={{ position: 'relative' }}>
-      <input
-        type="search"
-        placeholder="Search players..."
-        value={query}
-        style={{
-          backgroundColor: 'var(--search-bg-color)',
-          border: '1px solid black',
-          borderRadius: `4px 4px ${query ? 0 : ''} ${query ? 0 : ''}`,
-          color: 'var(--text-color)',
-          fontSize: '1rem',
-          padding: '0.75rem',
-          width: '100%',
-          outline: 'none'
-        }}
-        onChange={e => setQuery(e.target.value)}
-      />
-      <ul
+      <Autocomplete
         hidden={!loading && !players}
-        style={{
-          backgroundColor: 'var(--search-bg-color)',
-          color: 'var(--text-color)',
-          border: '1px solid black',
-          borderTop: 0,
-          borderBottomLeftRadius: 4,
-          borderBottomRightRadius: 4,
-          cursor: 'pointer',
-          listStyleType: 'none',
-          margin: 0,
-          padding: '0.75rem 0',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          zIndex: 10
-        }}
-      >
-        {query
-          ? <li
-            style={{
-              lineHeight: '1.5rem',
-              paddingLeft: '0.75rem',
-              paddingRight: '0.75rem',
-            }}
-          >
-            {loading ? 'Loading...' : null}
-            {error ? 'An error occured.' : null}
-            {players?.length === 0 ? 'No players found.' : null}
-          </li>
-          : null
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        renderResults={() =>
+          <>
+            {query &&
+              <li
+                style={{
+                  lineHeight: '1.5rem',
+                  paddingLeft: '0.75rem',
+                  paddingRight: '0.75rem',
+                }}
+              >
+                {loading && 'Loading...'}
+                {error && 'An error occured.'}
+                {players?.length === 0 ? 'No players found.' : null}
+              </li>
+            }
+            {players?.map(player =>
+              <li
+                key={player?.id}
+                dangerouslySetInnerHTML={{
+                  __html: `${player?.first_name} ${player?.last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
+                }}
+                onClick={() => handlePlayerClick(player)}
+                style={{
+                  lineHeight: '1.5rem',
+                  paddingLeft: '0.75rem',
+                  paddingRight: '0.75rem',
+                }}
+              />
+            )}
+          </>
         }
-        {players?.map(player =>
-          <li
-            key={player?.id}
-            dangerouslySetInnerHTML={{
-              __html: `${player?.first_name} ${player?.last_name}`.replace(new RegExp(query, 'i'), match => `<strong>${match}</strong>`)
-            }}
-            onClick={() => handlePlayerClick(player)}
-            style={{
-              lineHeight: '1.5rem',
-              paddingLeft: '0.75rem',
-              paddingRight: '0.75rem',
-            }}
-          />
-        )}
-      </ul>
+      />
     </form>
   )
 }
