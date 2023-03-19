@@ -1,17 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ToggleButton from "./ToggleButton";
+import DarkModeButton from "./DarkModeButton";
 
 describe('ToggleButton', () => {
   it('renders a button', () => {
-    render(<ToggleButton />);
+    render(<DarkModeButton />);
 
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
   });
 
   it('toggles a light/dark class to the body element when I click on the button', async () => {
-    render(<ToggleButton />);
+    render(<DarkModeButton />);
     expect(document.body).toHaveClass('light');
 
     const button = screen.getByRole('button');

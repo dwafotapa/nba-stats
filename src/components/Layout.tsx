@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Emoji from "./Emoji";
-import ToggleButton from "./ToggleButton";
+import DarkModeButton from "./DarkModeButton";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -21,8 +21,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       >
         <h1
           style={{
-            margin: 0,
-            fontSize: '3rem'
+            margin: 0
           }}
         >
           <Emoji
@@ -32,7 +31,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           {' '}
           NBA cards
         </h1>
-        <ToggleButton
+        <DarkModeButton
           style={{
             backgroundColor: 'var(--text-color)',
             borderRadius: 4,
